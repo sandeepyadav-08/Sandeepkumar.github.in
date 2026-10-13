@@ -93,7 +93,7 @@ SELECT YEAR(Order_Date) AS Order_Year, MONTH(Order_Date) AS Order_Month, MONTHNA
 
 
 -- QUERY 24
-SELECT YEAR(Order_Date) AS Order_Year, MONTH(Order_Date) AS Order_Month, MONTHNAME(Order_Date) AS Month_Name, SUM(Net_Sales) AS Monthly_Net_Sales, LAG(SUM(Net_Sales)) OVER (PARTITION BY YEAR(Order_Date) ORDER BY MONTH(Order_Date)) AS Previous_Month_Sales, ROUND((SUM(Net_Sales) - LAG(SUM(Net_Sales)) OVER (PARTITION BY YEAR(Order_Date) ORDER BY MONTH(Order_Date))) / LAG(SUM(Net_Sales) OVER (PARTITION BY YEAR(Order_Date) ORDER BY MONTH(Order_Date)) * 100, 2) AS MoM_Growth_Percent FROM ecommerce_sales_analytics_cleaned GROUP BY YEAR(Order_Date), MONTH(Order_Date), MONTHNAME(Order_Date) ORDER BY Order_Year, Order_Month;
+SELECT YEAR(Order_Date) AS Order_Year, MONTH(Order_Date) AS Order_Month, MONTHNAME(Order_Date) AS Month_Name, SUM(Net_Sales) AS Monthly_Net_Sales, LAG(SUM(Net_Sales)) OVER (PARTITION BY YEAR(Order_Date) ORDER BY MONTH(Order_Date)) AS Previous_Month_Sales, ROUND((SUM(Net_Sales) - LAG(SUM(Net_Sales)) OVER (PARTITION BY YEAR(Order_Date) ORDER BY MONTH(Order_Date))) / LAG(SUM(Net_Sales)) OVER (PARTITION BY YEAR(Order_Date) ORDER BY MONTH(Order_Date)) * 100, 2) AS MoM_Growth_Percent FROM ecommerce_sales_analytics_cleaned GROUP BY YEAR(Order_Date), MONTH(Order_Date), MONTHNAME(Order_Date) ORDER BY Order_Year, Order_Month;
 
 
 -- QUERY 25
