@@ -83,6 +83,34 @@ body{background-color:#070b14;background-image:radial-gradient(ellipse at 12% 3%
 @media(max-width:850px){.motion-dashboard{transform:none;max-width:100%}}
 @media(prefers-reduced-motion:reduce){.motion-dashboard:after,.motion-bar,.motion-live:before{animation:none!important}}
 
+
+/* Premium motion and interaction upgrade */
+html{scroll-padding-top:82px}
+::selection{background:rgba(105,234,213,.28);color:#fff}
+a:focus-visible,button:focus-visible{outline:2px solid var(--cyan);outline-offset:4px;border-radius:8px}
+.hero-grid>div{animation:hero-content-in .85s cubic-bezier(.2,.75,.25,1) both}
+.hero-grid>aside{animation:hero-card-in 1s cubic-bezier(.2,.75,.25,1) .12s both}
+.motion-dashboard{animation:dashboard-enter 1s cubic-bezier(.2,.8,.2,1) .2s both}
+.motion-kpi{position:relative;overflow:hidden}
+.motion-kpi:after{content:"";position:absolute;left:10px;right:10px;bottom:0;height:2px;border-radius:4px;background:linear-gradient(90deg,var(--cyan),var(--blue),var(--purple));transform:scaleX(.28);transform-origin:left;opacity:.72;transition:transform .45s ease,opacity .45s ease}
+.motion-kpi:hover:after{transform:scaleX(1);opacity:1}
+.motion-kpi b{letter-spacing:-.4px;text-shadow:0 0 18px rgba(103,183,255,.16)}
+.motion-dashboard:hover{border-color:rgba(105,234,213,.52);box-shadow:0 24px 55px rgba(0,0,0,.32),0 0 34px rgba(70,160,229,.13),inset 0 1px 0 rgba(255,255,255,.11);transform:perspective(900px) rotateY(0deg) rotateX(0deg) translateY(-3px)}
+.card .project-icon{transition:transform .35s cubic-bezier(.2,.8,.2,1),box-shadow .35s}
+.card:hover .project-icon{transform:translateY(-2px) translateZ(15px) rotate(-4deg);box-shadow:0 10px 22px rgba(66,145,222,.2),inset 0 1px 0 rgba(255,255,255,.1)}
+.section .kicker{display:inline-flex;align-items:center;gap:8px}
+.section .kicker:before{content:"";width:18px;height:1px;background:currentColor;box-shadow:0 0 10px currentColor}
+.nav{box-shadow:0 8px 24px rgba(0,0,0,.08)}
+.nav-cta{transition:background .2s,border-color .2s,transform .2s}
+.nav-cta:hover{background:rgba(103,183,255,.1);border-color:var(--blue);transform:translateY(-1px)}
+.footer a{transition:color .2s}
+.footer a:hover{color:var(--cyan)}
+@keyframes hero-content-in{from{opacity:0;transform:translate3d(0,18px,0)}to{opacity:1;transform:translate3d(0,0,0)}}
+@keyframes hero-card-in{from{opacity:0;transform:perspective(1100px) rotateY(-9deg) translate3d(22px,12px,-20px)}to{opacity:1;transform:perspective(1100px) rotateY(-5deg) rotateX(2deg) translate3d(0,0,0)}}
+@keyframes dashboard-enter{from{opacity:0;transform:perspective(900px) rotateY(-10deg) rotateX(6deg) translateY(12px)}to{opacity:1;transform:perspective(900px) rotateY(-4deg) rotateX(3deg) translateY(0)}}
+@media(max-width:850px){.hero-grid>div,.hero-grid>aside,.motion-dashboard{animation:none}.motion-dashboard:hover{transform:none}}
+@media(prefers-reduced-motion:reduce){.hero-grid>div,.hero-grid>aside,.motion-dashboard{animation:none!important}.motion-kpi:after{transition:none!important}}
+
 </style>
 </head>
 <body>
