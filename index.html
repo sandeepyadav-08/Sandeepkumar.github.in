@@ -81,6 +81,38 @@ h1 .gradient{background:none;color:#f5eeee}
 .project h3{margin-top:0}
 @media(max-width:600px){.project-preview{height:145px;margin:-18px -18px 16px;padding:12px}.preview-metrics strong{font-size:15px}}
 
+
+/* Compact, responsive project cards */
+#projects .grid{grid-template-columns:repeat(3,minmax(0,1fr));gap:12px;align-items:stretch}
+#projects .card.project{padding:15px;border-radius:0;min-width:0}
+#projects .project-preview{height:104px;margin:-15px -15px 12px;padding:9px 10px}
+#projects .preview-head{padding-bottom:6px}
+#projects .preview-head b{font-size:7px;letter-spacing:.6px}
+#projects .preview-tag{font-size:7px;padding:1px 4px}
+#projects .preview-metrics{margin-top:9px;gap:5px;grid-template-columns:1fr 1fr .9fr}
+#projects .preview-metrics small{font-size:7px}
+#projects .preview-metrics strong{font-size:13px;margin-top:1px}
+#projects .mini-bars{height:28px;gap:2px}
+#projects .preview-line{margin-top:7px;gap:4px}
+#projects .preview-line span{height:3px}
+#projects .project h3{font-size:15px;line-height:1.3;margin:7px 0}
+#projects .project p{font-size:12px;line-height:1.45}
+#projects .project .tags{gap:5px;margin-top:10px}
+#projects .project .tag{font-size:9px;padding:3px 6px}
+#projects .project-links{gap:9px;margin-top:11px}
+#projects .project-links a{font-size:10px}
+@media(max-width:900px){#projects .grid{grid-template-columns:repeat(2,minmax(0,1fr));gap:12px}}
+@media(max-width:560px){
+ #projects .grid{grid-template-columns:1fr;gap:12px}
+ #projects .card.project{padding:14px}
+ #projects .project-preview{height:110px;margin:-14px -14px 11px;padding:9px 10px}
+ #projects .preview-metrics{grid-template-columns:1fr 1fr .8fr}
+ #projects .project h3{font-size:16px}
+ #projects .project p{font-size:12px}
+ #projects .project .tag{font-size:10px}
+ #projects .project-links a{font-size:11px}
+}
+
 </style>
 </head>
 <body>
