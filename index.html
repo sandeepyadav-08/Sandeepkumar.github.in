@@ -291,6 +291,95 @@ body{background:#090a0c}
 #projects .card.project:nth-child(2) .project-preview{background:linear-gradient(110deg,#8e3a42 0 13%,#24252a 13% 78%,#d8d3cf 78% 100%)}
 #projects .card.project:nth-child(2) .project-icon{background:#292126;color:#d98a90}
 
+
+/* Two landscape project cards per row with refreshed visual thumbnails */
+#projects .grid{
+  max-width:1120px;
+  grid-template-columns:repeat(2,minmax(0,1fr));
+  gap:16px;
+  padding:8px 0 24px;
+  align-items:stretch;
+}
+#projects .card.project{
+  display:grid;
+  grid-template-columns:35% minmax(0,1fr);
+  grid-template-rows:auto auto auto auto 1fr;
+  column-gap:13px;
+  align-content:start;
+  min-height:174px;
+  width:100%;
+  margin:0;
+  padding:12px;
+  border:1px solid #39343a;
+  background:linear-gradient(145deg,#17181c,#101114);
+  box-shadow:0 9px 22px rgba(0,0,0,.25);
+}
+#projects .project-preview{
+  grid-column:1;
+  grid-row:1 / span 5;
+  height:100%;
+  min-height:148px;
+  margin:-12px 0 -12px -12px;
+  padding:11px 9px;
+  background:
+    radial-gradient(circle at 80% 18%,rgba(240,133,139,.22),transparent 30%),
+    linear-gradient(155deg,#45242b 0%,#21191e 48%,#111216 100%);
+  border-right:1px solid #70434a;
+  border-bottom:0;
+  position:relative;
+}
+#projects .project-preview:before{
+  content:"";
+  position:absolute;inset:9px;
+  border:1px solid rgba(255,255,255,.12);
+  pointer-events:none;
+}
+#projects .project-preview:after{
+  width:80px;height:80px;right:-35px;top:auto;bottom:-35px;
+  border-color:rgba(239,139,145,.24);
+  box-shadow:0 0 0 12px rgba(239,139,145,.035),0 0 0 25px rgba(239,139,145,.025);
+}
+#projects .preview-head{gap:3px;padding-bottom:7px}
+#projects .preview-head b{font-size:7px;letter-spacing:.35px}
+#projects .preview-tag{font-size:6px;padding:1px 3px}
+#projects .preview-metrics{grid-template-columns:1fr;gap:5px;margin-top:11px}
+#projects .preview-metrics small{font-size:7px}
+#projects .preview-metrics strong{font-size:15px}
+#projects .mini-bars{height:25px;gap:3px}
+#projects .preview-line{margin-top:7px}
+#projects .project-top{grid-column:2;grid-row:1;gap:6px}
+#projects .project-icon{width:27px;height:27px;font-size:10px}
+#projects .project-type{font-size:8px;letter-spacing:.55px}
+#projects .project h3{grid-column:2;grid-row:2;font-size:15px;line-height:1.25;margin:6px 0}
+#projects .project p{grid-column:2;grid-row:3;font-size:11px;line-height:1.4}
+#projects .project .tags{grid-column:2;grid-row:4;gap:4px;margin-top:7px}
+#projects .project .tag{font-size:8px;padding:3px 5px}
+#projects .project-links{grid-column:2;grid-row:5;gap:8px;margin-top:8px}
+#projects .project-links a{font-size:9px}
+#projects .card.project:hover{
+  transform:perspective(1000px) rotateX(0) rotateY(0) rotateZ(0) translateY(-3px);
+  border-color:#a75a62;
+  box-shadow:0 15px 28px rgba(0,0,0,.38);
+}
+@media(max-width:850px){
+  #projects .grid{grid-template-columns:1fr;max-width:760px}
+  #projects .card.project{grid-template-columns:30% minmax(0,1fr);min-height:165px}
+  #projects .project-preview{min-height:140px}
+}
+@media(max-width:560px){
+  #projects .grid{grid-template-columns:1fr;gap:12px}
+  #projects .card.project{grid-template-columns:32% minmax(0,1fr);padding:10px;column-gap:10px;min-height:154px}
+  #projects .project-preview{margin:-10px 0 -10px -10px;min-height:142px;padding:9px 7px}
+  #projects .project h3{font-size:14px}
+  #projects .project p{font-size:10px}
+  #projects .project-links{flex-wrap:wrap}
+  #projects .project-links a{font-size:8px}
+  #projects .project .tag{font-size:7px}
+}
+@media(prefers-reduced-motion:reduce){
+  #projects .card.project,#projects .card.project.is-visible{transform:none!important}
+}
+
 </style>
 </head>
 <body>
