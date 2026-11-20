@@ -127,6 +127,60 @@ h1 .gradient{background:none;color:#f5eeee}
 @media(prefers-reduced-motion:reduce){
  #projects .card.project{opacity:1;transform:none;transition:none}
 }
+
+/* 3D editorial project stack inspired by the supplied reference */
+#projects .grid{perspective:1500px;gap:0;padding:18px 0 30px}
+#projects .card.project{
+  --rz:0deg;--rx:2deg;--ry:-2deg;
+  position:relative;isolation:isolate;overflow:hidden;
+  margin:0 auto -15px;width:min(100%,820px);
+  border:1px solid #6d252b;
+  background:linear-gradient(120deg,#f0eeee 0 28%,#120d0e 28% 100%);
+  color:#f8f2f2;
+  box-shadow:0 22px 45px rgba(0,0,0,.48),0 5px 0 rgba(174,18,31,.22);
+  transform-style:preserve-3d;
+  transform:perspective(1500px) rotateX(var(--rx)) rotateY(var(--ry)) rotateZ(var(--rz)) translateY(28px);
+  transition:opacity .65s ease,transform .55s cubic-bezier(.2,.75,.25,1),box-shadow .35s,border-color .3s;
+  backface-visibility:hidden;
+}
+#projects .card.project:nth-child(3n+1){--rz:-1.15deg;--ry:-1.5deg;z-index:3}
+#projects .card.project:nth-child(3n+2){--rz:1deg;--ry:1.6deg;z-index:2}
+#projects .card.project:nth-child(3n){--rz:-.45deg;--ry:-.8deg;z-index:1}
+#projects .card.project.is-visible{opacity:1;transform:perspective(1500px) rotateX(var(--rx)) rotateY(var(--ry)) rotateZ(var(--rz)) translateY(0)}
+#projects .card.project:hover{z-index:8;border-color:#ff4652;box-shadow:0 34px 65px rgba(0,0,0,.62),0 0 0 1px rgba(241,40,54,.25);transform:perspective(1500px) rotateX(0deg) rotateY(0deg) rotateZ(0deg) translateY(-5px) scale(1.012)}
+#projects .project-preview{
+  height:165px;margin:-18px -18px 16px;padding:15px 18px;
+  background:linear-gradient(115deg,#e32632 0 21%,#0b090a 21% 68%,#e8e6e6 68% 100%);
+  border-bottom:1px solid #9f252d;transform:translateZ(18px);
+}
+#projects .project-preview:after{border-color:rgba(255,255,255,.28);box-shadow:0 0 0 18px rgba(255,255,255,.04),0 0 0 38px rgba(241,40,54,.08)}
+#projects .preview-head{border-color:rgba(255,255,255,.25)}
+#projects .preview-head b{color:#fff}
+#projects .preview-tag{color:#fff;border-color:#d83a43;background:#a90f1b}
+#projects .preview-metrics strong{color:#fff}
+#projects .mini-bars{border-color:#b73a42}
+#projects .project-top,#projects .project h3,#projects .project p,#projects .project .tags,#projects .project-links{position:relative;z-index:1}
+#projects .project-icon{background:#a9111d;color:#fff}
+#projects .project-type{color:#ff6570}
+#projects .project h3{font-size:19px;letter-spacing:-.4px}
+#projects .project p{max-width:680px;color:#c6baba;font-size:13px}
+#projects .project .tag{background:#1a1113;border-color:#4b282c;color:#e9dada}
+#projects .project-links a{color:#ff5b66}
+@media(hover:hover) and (pointer:fine){
+ #projects .card.project{will-change:transform}
+}
+@media(max-width:600px){
+ #projects .grid{padding-top:10px;gap:0}
+ #projects .card.project{margin-bottom:-8px;transform:perspective(1000px) rotateX(1deg) rotateZ(var(--rz)) translateY(28px)}
+ #projects .card.project.is-visible{transform:perspective(1000px) rotateX(1deg) rotateZ(var(--rz)) translateY(0)}
+ #projects .card.project:hover{transform:perspective(1000px) rotateX(0) rotateZ(0) translateY(-3px)}
+ #projects .project-preview{height:135px;margin:-15px -15px 13px;padding:12px}
+ #projects .project h3{font-size:17px}
+}
+@media(prefers-reduced-motion:reduce){
+ #projects .card.project,#projects .card.project.is-visible{transform:none!important}
+}
+
 </style>
 </head>
 <body>
@@ -158,17 +212,33 @@ document.addEventListener("DOMContentLoaded", function () {
   const projectCards = document.querySelectorAll("#projects .card.project");
   if (!("IntersectionObserver" in window)) {
     projectCards.forEach(card => card.classList.add("is-visible"));
-    return;
+  } else {
+    const observer = new IntersectionObserver((entries, obs) => {
+      entries.forEach(entry => {
+        if (entry.isIntersecting) {
+          entry.target.classList.add("is-visible");
+          obs.unobserve(entry.target);
+        }
+      });
+    }, { threshold: 0.12, rootMargin: "0px 0px -45px 0px" });
+    projectCards.forEach(card => observer.observe(card));
   }
-  const observer = new IntersectionObserver((entries, obs) => {
-    entries.forEach(entry => {
-      if (entry.isIntersecting) {
-        entry.target.classList.add("is-visible");
-        obs.unobserve(entry.target);
-      }
+  if (window.matchMedia("(hover:hover) and (pointer:fine)").matches &&
+      !window.matchMedia("(prefers-reduced-motion: reduce)").matches) {
+    projectCards.forEach(card => {
+      card.addEventListener("pointermove", event => {
+        const rect = card.getBoundingClientRect();
+        const x = (event.clientX - rect.left) / rect.width - .5;
+        const y = (event.clientY - rect.top) / rect.height - .5;
+        card.style.setProperty("--ry", (x * 5).toFixed(2) + "deg");
+        card.style.setProperty("--rx", (-y * 4).toFixed(2) + "deg");
+      });
+      card.addEventListener("pointerleave", () => {
+        card.style.setProperty("--rx", "2deg");
+        card.style.setProperty("--ry", card.matches(":nth-child(3n+2)") ? "1.6deg" : "-1.5deg");
+      });
     });
-  }, { threshold: 0.12, rootMargin: "0px 0px -45px 0px" });
-  projectCards.forEach(card => observer.observe(card));
+  }
 });
 </script>
 
